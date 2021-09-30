@@ -1,0 +1,103 @@
+using System;
+using System.Collections.Generic;					
+public class Program
+{
+	public static void Main()
+	{
+		List<string> names = new List<string>();
+		var values = new Dictionary<int,int>();
+		string n,s="",st;
+		Console.WriteLine("1. Create a Account\n2. Deposit Amount\n3. Withdraw Amount\n4. Transfer Amount\n5. Print Transaction History\n6. Exit\n");
+		int c=0,j;
+		while(true){
+			Console.WriteLine("Select number");
+			int i=int.Parse(Console.ReadLine());
+			switch(i){
+				case 1:Console.WriteLine("Enter your name:");
+					n=Console.ReadLine();
+					while(names.Contains(n)){
+						Console.WriteLine("Account name already exists, enter other name");
+						n=Console.ReadLine();
+					}
+					names.Add(n);
+					values.Add((names.Count-1),0);
+					Console.WriteLine("Account created, your account number is "+(names.Count-1));
+					st=n+" created account\n";
+					s=s+st;
+					break;
+				case 2:Console.WriteLine("Enter your name:");
+					n=Console.ReadLine();
+					Console.WriteLine("Enter your account number");
+					j=int.Parse(Console.ReadLine());
+					if(j>=names.Count && names.Contains(n)){
+						Console.WriteLine("Entered account number is wrong");
+					}
+					else if(j>=names.Count) Console.WriteLine("create account");
+					else if(names[j].Equals(n)){
+						Console.WriteLine("Enter the amount you want to deposit");
+						int deposit=int.Parse(Console.ReadLine());
+						values[j]=values[j]+deposit;
+						Console.WriteLine("Total balance is "+values[j]);
+						st=deposit+" is deposited to "+n+"\n";
+						s=s+st;
+					}
+					else Console.WriteLine("Entered correct account number is wrong");
+					break;
+				case 3:Console.WriteLine("Enter your name:");
+					n=Console.ReadLine();
+					Console.WriteLine("Enter your account number");
+					j=int.Parse(Console.ReadLine());
+					if(j>=names.Count && names.Contains(n)){
+						Console.WriteLine("Entered account number is wrong");
+					}
+					else if(j>=names.Count) Console.WriteLine("create account");
+					else if(names[j].Equals(n)){
+						Console.WriteLine("Enter the amount you want to withdraw");
+						int withdraw=int.Parse(Console.ReadLine());
+						if(withdraw>values[j]) Console.WriteLine("Available amount is "+values[j]);
+						else{
+							values[j]=values[j]-withdraw;
+							Console.WriteLine("Total balance is "+values[j]);
+							st=withdraw+" is withdrawn from "+n+" account\n";
+							s=s+st;
+						}
+					}
+					else Console.WriteLine("Entered correct account number is wrong");
+					break;
+				case 4:Console.WriteLine("Enter your name:");
+					n=Console.ReadLine();
+					Console.WriteLine("Enter your account number");
+					j=int.Parse(Console.ReadLine());
+					Console.WriteLine("Enter receiver account number");
+					int rxn=int.Parse(Console.ReadLine());
+					if(rxn>=names.Count) Console.WriteLine("Entered receiver's account number is wrong");
+					else if(j>=names.Count && names.Contains(n)){
+						Console.WriteLine("Entered account number is wrong");
+					}
+					else if(j>=names.Count) Console.WriteLine("create account");
+					else if(names[j].Equals(n)){
+						Console.WriteLine("Enter the amount you want to transfer");
+						int transfer=int.Parse(Console.ReadLine());
+						if(transfer>values[j]) Console.WriteLine("Available amount is "+values[j]);
+						else{
+							values[j]=values[j]-transfer;
+							values[rxn]=values[rxn]+transfer;
+							Console.WriteLine("Total balance is "+values[j]);
+							st=transfer+" is transferred from "+n+" to "+names[rxn]+"\n";
+							s=s+st;
+						}
+					}
+					else Console.WriteLine("Entered correct account number is wrong");
+					break;
+				case 5:Console.WriteLine(s);
+					break;
+				case 6:c=1;
+					Console.WriteLine("Thank You");
+					break;
+				default:Console.WriteLine("Select number from 1 to 6");
+					break;
+			}
+			if(c==1) break;
+		}
+	}
+}
