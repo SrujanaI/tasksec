@@ -5,8 +5,9 @@ public class Program
 	public static void Main()
 	{
 		List<string> names = new List<string>();
+		List<string> trHistory = new List<string>();
 		var values = new Dictionary<int,int>();
-		string n,s="",st;
+		string n,st;
 		Console.WriteLine("1. Create a Account\n2. Deposit Amount\n3. Withdraw Amount\n4. Transfer Amount\n5. Print Transaction History\n6. Exit\n");
 		int c=0,j;
 		while(true){
@@ -23,7 +24,7 @@ public class Program
 					values.Add((names.Count-1),0);
 					Console.WriteLine("Account created, your account number is "+(names.Count-1));
 					st=n+" created account\n";
-					s=s+st;
+					trHistory.Add(st);
 					break;
 				case 2:Console.WriteLine("Enter your name:");
 					n=Console.ReadLine();
@@ -39,7 +40,7 @@ public class Program
 						values[j]=values[j]+deposit;
 						Console.WriteLine("Total balance is "+values[j]);
 						st=deposit+" is deposited to "+n+"\n";
-						s=s+st;
+						trHistory[j]=trHistory[j]+st;
 					}
 					else Console.WriteLine("Entered correct account number is wrong");
 					break;
@@ -59,7 +60,7 @@ public class Program
 							values[j]=values[j]-withdraw;
 							Console.WriteLine("Total balance is "+values[j]);
 							st=withdraw+" is withdrawn from "+n+" account\n";
-							s=s+st;
+							trHistory[j]=trHistory[j]+st;
 						}
 					}
 					else Console.WriteLine("Entered correct account number is wrong");
@@ -84,12 +85,17 @@ public class Program
 							values[rxn]=values[rxn]+transfer;
 							Console.WriteLine("Total balance is "+values[j]);
 							st=transfer+" is transferred from "+n+" to "+names[rxn]+"\n";
-							s=s+st;
+							trHistory[j]=trHistory[j]+st;
+							trHistory[rxn]=trHistory[rxn]+st;
 						}
 					}
 					else Console.WriteLine("Entered correct account number is wrong");
 					break;
-				case 5:Console.WriteLine(s);
+				case 5:Console.WriteLine("Enter your name:");
+					n=Console.ReadLine();
+					Console.WriteLine("Enter your account number");
+					j=int.Parse(Console.ReadLine());
+					Console.WriteLine(trHistory[j]);
 					break;
 				case 6:c=1;
 					Console.WriteLine("Thank You");
@@ -97,7 +103,9 @@ public class Program
 				default:Console.WriteLine("Select number from 1 to 6");
 					break;
 			}
-			if(c==1) break;
+			if(c==1){
+				break;
+			}
 		}
 	}
 }
